@@ -1,0 +1,3 @@
+*.env
+*.csv
+.psql_data
