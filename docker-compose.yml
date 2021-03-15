@@ -3,8 +3,9 @@ version: '3'
 services:
   challenge-db:
     image: "postgres:13-alpine"
-    environment:
-      - POSTGRES_DB=order_logs
+    # Change to use env file in real use cases
+    environment: 
+      - POSTGRES_DB=captec_challenge
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
     expose:

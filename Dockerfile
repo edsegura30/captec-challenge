@@ -8,8 +8,7 @@ RUN apk update --no-cache \
 
 ADD requirements.txt /
 RUN pip install --upgrade pip --no-cache-dir \
-    && pip install -r  requirements.txt --no-cache-dir \
-    && apk del .build-deps
+    && pip install -r  requirements.txt --no-cache-dir
 
 WORKDIR /app
 
