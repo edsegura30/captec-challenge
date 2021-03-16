@@ -1,4 +1,4 @@
 *.env
 *.csv
-.psql_data
+psql_data/
 *__pycache__
