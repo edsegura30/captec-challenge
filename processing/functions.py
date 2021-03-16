@@ -62,9 +62,7 @@ def get_sum_of_user_orders(period):
     subquery = USER_QUERY % {'start': start_date, 'end': end_date}
     query = (
         f'SELECT SUM(amount) FROM {ORDER_TABLE_NAME} '
-        f'WHERE customer IN ({subquery}) '
-        f"AND placed_on < '{end_date}' "
-        f"AND placed_on >= '{start_date}'")
+        f'WHERE customer IN ({subquery});')
     db = get_connection()
     cursor = db.cursor()
     cursor.execute(query)
