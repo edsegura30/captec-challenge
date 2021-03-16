@@ -21,5 +21,3 @@ USER_TABLE_COLUMNS =(
     f'customer_id varchar(35) primary key, '
     f'first_purchase timestamp default NULL'
 )
-
-from . import utils

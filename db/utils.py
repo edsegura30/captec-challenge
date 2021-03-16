@@ -49,6 +49,18 @@ def __create_user_table(connection):
     return created
 
 
+def __get_insert_table_columns(table_name):
+    """
+    Returns a string with the correct column names to update on an
+    insert operation.
+    """
+
+    if table_name == USER_TABLE_NAME:
+        return '(customer_id, first_purchase)'
+    elif table_name == ORDER_TABLE_NAME:
+        return '(order_id, created_date, amount, customer_id)'
+
+
 def check_db_status():
     try:
         # Connect to DB
@@ -113,3 +125,14 @@ def init_db_schema():
         print('Creating order table')
         __create_order_table(connection)
     connection.close()
+
+
+def perform_bulk_insetion(data, table_headers, table_name, page_size=100):
+    """
+    Uses psycopg2.extras.execute_values to accelerate data insertion to
+    DB.
+    """
+    connection = get_connection()
+    INSERT_SQL = f'INSERT INTO {table_name} {table_headers}'
+    with connection.cursor() as cursor:
+        psycopg2.extras.execute_values(cursor, sql, argslist)
