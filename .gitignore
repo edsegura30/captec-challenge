@@ -1,0 +1,4 @@
+*.env
+*.csv
+psql_data/
+*__pycache__
