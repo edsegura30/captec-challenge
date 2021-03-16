@@ -1,5 +1,7 @@
 import psycopg2
 
+from psycopg2.extras import execute_values
+
 from db import (
     DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, 
     ORDER_TABLE_COLUMNS, ORDER_TABLE_NAME, USER_TABLE_COLUMNS, USER_TABLE_NAME
@@ -58,7 +60,7 @@ def __get_insert_table_columns(table_name):
     if table_name == USER_TABLE_NAME:
         return '(customer_id, first_purchase)'
     elif table_name == ORDER_TABLE_NAME:
-        return '(order_id, created_date, amount, customer_id)'
+        return '(order_id, created_date, amount, customer)'
 
 
 def check_db_status():
@@ -127,12 +129,16 @@ def init_db_schema():
     connection.close()
 
 
-def perform_bulk_insetion(data, table_headers, table_name, page_size=100):
+def perform_bulk_insertion(data, table_name, page_size=100):
     """
     Uses psycopg2.extras.execute_values to accelerate data insertion to
     DB.
     """
     connection = get_connection()
-    INSERT_SQL = f'INSERT INTO {table_name} {table_headers}'
+    table_headers = __get_insert_table_columns(table_name)
+    INSERT_SQL = f'INSERT INTO {table_name} {table_headers} VALUES %s'
     with connection.cursor() as cursor:
-        psycopg2.extras.execute_values(cursor, sql, argslist)
+        execute_values(cursor, INSERT_SQL, data, page_size=page_size)
+        connection.commit()
+
+    print('Data inserted to', table_name)

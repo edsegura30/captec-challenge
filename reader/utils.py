@@ -5,6 +5,8 @@ from datetime import datetime
 from decimal import Decimal
 
 from . import LOG_FILE_PATH
+from db import ORDER_TABLE_NAME, USER_TABLE_NAME
+from db.utils import perform_bulk_insertion
 
 READ_CMD = ['cat', LOG_FILE_PATH]
 
@@ -14,6 +16,7 @@ def load_log_to_db():
     Reads the log file using the path defined as an environment variable or
     on the default path ('order_log.csv' at this project root level).
     """
+    processed = set()
     monthly_revenues = {}
     db_order_values = []
     first_purchases = {}
@@ -28,7 +31,11 @@ def load_log_to_db():
         except ValueError:
             print('Skipping not valid line')
             continue
-
+        if line[1] in processed:
+            print('Skipping already processed order', line[1])
+            continue
+        else:
+            processed.add(line[1])
         order_date = datetime.fromisoformat(line[4])
         order_user = line[2]
 
@@ -45,11 +52,16 @@ def load_log_to_db():
             first_purchases[order_user] = order_date
 
         db_order_values.append(
-            (line[1], order_date.timestamp(), line[3],  order_user))
+            (line[1], str(order_date), line[3],  order_user))
 
     db_user_values = [
-        (user_id, date.timestamp()) for user_id, date in first_purchases.items()
+        (user_id, str(date)) for user_id, date in first_purchases.items()
     ]
+    # Store information
+    print('Saving user date to DB')
+    perform_bulk_insertion(db_user_values, USER_TABLE_NAME)
+    print('Saving order data to DB')
+    perform_bulk_insertion(db_order_values, ORDER_TABLE_NAME)
 
     return monthly_revenues
 

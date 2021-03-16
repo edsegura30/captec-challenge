@@ -8,4 +8,4 @@ if __name__ == '__main__':
     revenue_breakdown = load_log_to_db()
     print('Showing revenue periods')
     for period, total in  revenue_breakdown.items():
-        print(f'Revenue placed for orders on {period}: ${total} \n')
+        print(f'Revenue for orders placed on {period}: ${total} \n')
