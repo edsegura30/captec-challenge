@@ -13,5 +13,6 @@ RUN pip install --upgrade pip --no-cache-dir \
 WORKDIR /app
 
 ADD . .
+ENV PYTHONUNBUFFERED=1
 
-CMD ["echo", "'Holi'"]
+CMD ["sh", "init.sh"]
