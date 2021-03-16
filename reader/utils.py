@@ -29,13 +29,11 @@ def load_log_to_db():
             # should be processed
             int(line[0])
         except ValueError:
-            print('Skipping not valid line')
             continue
         if line[1] in processed:
-            print('Skipping already processed order', line[1])
             continue
-        else:
-            processed.add(line[1])
+
+        processed.add(line[1])
         order_date = datetime.fromisoformat(line[4])
         order_user = line[2]
 

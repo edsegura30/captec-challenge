@@ -1,7 +1,7 @@
 import os
 
 
-DB_HOST = os.environ.get('DB_HOST', 'localhost')
+DB_HOST = os.environ.get('DB_HOST', 'challenge-db')
 DB_NAME = os.environ.get('DB_NAME', 'captec_challenge')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'postgres')
 DB_PORT = os.environ.get('DB_PORT', '5432')
