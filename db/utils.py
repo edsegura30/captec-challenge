@@ -60,7 +60,7 @@ def __get_insert_table_columns(table_name):
     if table_name == USER_TABLE_NAME:
         return '(customer_id, first_purchase)'
     elif table_name == ORDER_TABLE_NAME:
-        return '(order_id, created_date, amount, customer)'
+        return '(order_id, placed_on, amount, customer)'
 
 
 def check_db_status():
@@ -141,4 +141,5 @@ def perform_bulk_insertion(data, table_name, page_size=100):
         execute_values(cursor, INSERT_SQL, data, page_size=page_size)
         connection.commit()
 
+    connection.close()
     print('Data inserted to', table_name)
