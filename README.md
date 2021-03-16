@@ -15,7 +15,7 @@ Edgar Segura
 1. Clone repo
 2. Copy required CSV to repo folder. The name of the file to process can be defining LOG_FILE_PATH
 2. On repo root level use `docker-compose up`, this will build the DB and data-processor container
-3. After build, data processor container will wait for DB to available and then will start processing data. The insights will be printed on the console
+3. After build, data processor container will wait for DB to be available, and then it will start processing data. The results will be printed on the console
 
 ### Using virtualenv
 1. Clone repo
