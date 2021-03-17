@@ -40,7 +40,7 @@ Edgar Segura
 
 
 ## Notes
-* File name to be processed can be overriden setting the environment variable `LOG_FILE_PATH`. It's important to note that when using docker, the volume linked is on the root folder of the project. So the file can only be read if it exists inside this folder
+* File name to be processed can be overriden setting the environment variable `LOG_FILE_PATH`.  It's important to note that when using docker, the volume linked is on the root folder of the project. So the file can only be read if it exists inside this folder
 * In order to restart process, you need to clear the DB as the get_or_create functionality is still not defined
 * Duplicated *order_id* were skipped as my understanding that order ID should be unique
 * The decision to use subprocess instead of pandas is the familiarity, and the capability to run and monitor a process directly from this the same python script. Also, I'm not really familiar with Pandas/Numpy so I'd rather show you what I know instead of making something horrible or not following best practices using frameworks that I'm not that familiar with.
