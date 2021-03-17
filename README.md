@@ -13,14 +13,15 @@ Edgar Segura
 ## Running
 ### Using docker-compose
 1. Clone repo
-2. Copy required CSV to repo folder. The name of the file to process can be defining LOG_FILE_PATH
+2. Copy required CSV to repo folder.
 2. On repo root level use `docker-compose up`, this will build the DB and data-processor container
 3. After build, data processor container will wait for DB to be available, and then it will start processing data. The results will be printed on the console
 
 ### Using virtualenv
 1. Clone repo
-2.  The name of the file to process can be defining LOG_FILE_PATH
-3. Create virtualenv for project. You can use:
+2. Copy required CSV to repo folder.
+3.  The name of the file to process can be defining LOG_FILE_PATH
+4. Create virtualenv for project. You can use:
 
 ```python -m virtualenv captec_venv```
 4. Activate the newly created virtual environment:
